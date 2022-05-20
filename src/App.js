@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {useState, useEffect} from 'react';
-import Header from './components/Header'
+import Header from './components/Header';
+import CatsFromAPI from './components/CatsFromAPI';
 const animal = 'cat'; //dog, horse
 const catsURL =`https://cat-fact.herokuapp.com/facts/random?animal_type=${animal}&amount=`;
 const amount = 15
@@ -10,32 +11,23 @@ function App() {
   const [localCats, setLocalCats] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const data=[]
+ const data=[]
 
   useEffect(()=>{
     // setIsLoading(true)
 axios
   .get(`${catsURL}${amount}`)
-  .then((data)=>setCats(data))
-  console.log(cats)
+  .then((data)=>setCats(data.data))
+  
   // setIsLoading(false)
-  },[isLoading, cats])
+  },[])
+
+ 
   return (
     <div className="main-container">
     <Header />
     <main>
-       <section className="bg-color">
-            <strong>Cats from API</strong>
-            <a href="https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=10">(CLICK HERE)</a>
-            <div className="api-container">
-              {cats.map((cat, i)=>
-   (<div id="fetch-data">
-                {i+1}. {cat.text}
-                </div>)
-              )}
-                 
-            </div>
-       </section>
+      <CatsFromAPI cats={cats} />
        <section className="bg-color">
             <strong>Local Cats</strong>(add a cat fact <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
