@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import CatsFromAPI from './components/CatsFromAPI';
 import Loading from './components/Loading';
-import {FaLongArrowAltRight,FaRegHeart,FaTrashAlt} from 'react-icons/fa'
+import {FaLongArrowAltRight,FaRegHeart,FaTrashAlt,FaRegTrashAlt} from 'react-icons/fa'
 const animal = 'cat'; //dog, horse
 const catsURL =`https://cat-fact.herokuapp.com/facts/random?animal_type=${animal}&amount=`;
 const amount = 15
@@ -38,6 +38,17 @@ if(localCats===''){
   setInputValue('')
 }
 } 
+
+const handleFavorite=(index)=>{
+  console.log('favorite',favorites)
+setFavorites([...favorites,localCats[index]])
+}
+
+const handleDelete=(index)=>{
+console.log('delete')
+let newList=localCats.filter((item, ind)=>ind!==index)
+setLocalCats(newList)
+}
   return (
     <div className="main-container">
     <Header />
@@ -48,13 +59,13 @@ if(localCats===''){
             <strong>Local Cats</strong>(add a cat fact <FaLongArrowAltRight />)
           <div className="local-container">
                  {localCats.map((localCat,j)=>{
-                   return <div class="local-cat">
+                   return <div className="local-cat">
                    {j+1}. {localCat}
-                   <div class="btn-wrapper">
-                       <button id="fav-btn" class="btn btn-success" onclick="favoriteFn(${j})">
+                   <div className="btn-wrapper">
+                       <button id="fav-btn" className="btn btn-success" onClick={()=>handleFavorite(j)}>
                           <FaRegHeart />
                      </button>
-                     <button id="del-btn" class="btn btn-warning" onclick="deleteFn(${j})">
+                     <button id="del-btn" className="btn btn-warning" onClick={()=>handleDelete(j)}>
                          <FaTrashAlt />  
                      </button>
                    </div>
@@ -73,7 +84,16 @@ if(localCats===''){
             <section id="favCats" className="bg-color">
                 <strong>Favorite Facts</strong>
                 <div className="fav-container">
-                        <div className="fav-fact"></div>
+                       {favorites.map((favorite,k)=>{
+                         return  <div class="local-cat">
+                         {k+1}. {favorite}
+                             <div class="btn-wrappper">
+                                 <button id="remove-btn" className="btn btn-danger" onClick={()=>handleDeleteFav(k)}>
+                                     <FaRegTrashAlt />
+                                 </button>
+                             </div>
+                         </div>
+                       })} <div className="fav-fact"></div>
                 </div>
             </section>
     </div>
