@@ -2,6 +2,8 @@ import axios from 'axios'
 import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import CatsFromAPI from './components/CatsFromAPI';
+import Loading from './components/Loading';
+import {FaLongArrowAltRight,FaRegHeart,FaTrashAlt} from 'react-icons/fa'
 const animal = 'cat'; //dog, horse
 const catsURL =`https://cat-fact.herokuapp.com/facts/random?animal_type=${animal}&amount=`;
 const amount = 15
@@ -10,38 +12,63 @@ function App() {
   const [cats, setCats] = useState([])
   const [localCats, setLocalCats] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false);
+  const [alert,setAlert] = useState(false)
  const data=[]
 
   useEffect(()=>{
-    // setIsLoading(true)
+    setIsLoading(true)
 axios
   .get(`${catsURL}${amount}`)
   .then((data)=>setCats(data.data))
   
-  // setIsLoading(false)
+  setIsLoading(false)
   },[])
 
- 
+const handleSubmit=()=>{
+  console.log('clicked')
+if(localCats===''){
+  setAlert(true)
+  setTimeout(()=>{
+    setAlert(false)
+  },3000)
+} else {
+  setLocalCats([...localCats,inputValue])
+  setInputValue('')
+}
+} 
   return (
     <div className="main-container">
     <Header />
     <main>
-      <CatsFromAPI cats={cats} />
+      {isLoading ?
+     (<Loading />) : (<> <CatsFromAPI cats={cats} /></>)}
        <section className="bg-color">
-            <strong>Local Cats</strong>(add a cat fact <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-          </svg>)
+            <strong>Local Cats</strong>(add a cat fact <FaLongArrowAltRight />)
           <div className="local-container">
-                 <div className="local-cat"></div>
+                 {localCats.map((localCat,j)=>{
+                   return <div class="local-cat">
+                   {j+1}. {localCat}
+                   <div class="btn-wrapper">
+                       <button id="fav-btn" class="btn btn-success" onclick="favoriteFn(${j})">
+                          <FaRegHeart />
+                     </button>
+                     <button id="del-btn" class="btn btn-warning" onclick="deleteFn(${j})">
+                         <FaTrashAlt />  
+                     </button>
+                   </div>
+               </div>
+                 })
+                 }
           </div>
        </section>
        <div className="third-column">
             <section className="input-container">
-                <form action="#">
-                    <input type="text" id="input-fact" placeholder="Add Cats Facts" />
-                    <button id="add-btn">ADD</button>
-                </form>
+                <div>
+                    <input type="text" onChange={(e)=>setInputValue(e.target.value)} value={inputValue}id="input-fact" placeholder="Add Cats Facts" />
+                    <button onClick={handleSubmit} id="add-btn">ADD</button>
+                </div>
             </section>
             <section id="favCats" className="bg-color">
                 <strong>Favorite Facts</strong>
