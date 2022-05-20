@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import CatsFromAPI from './components/CatsFromAPI';
 import Loading from './components/Loading';
+import Alert from './Alert';
 import {FaLongArrowAltRight,FaRegHeart,FaTrashAlt,FaRegTrashAlt} from 'react-icons/fa'
 const animal = 'cat'; //dog, horse
 const catsURL =`https://cat-fact.herokuapp.com/facts/random?animal_type=${animal}&amount=`;
@@ -28,7 +29,7 @@ axios
 
 const handleSubmit=()=>{
   console.log('clicked')
-if(localCats===''){
+if(inputValue===''){
   setAlert(true)
   setTimeout(()=>{
     setAlert(false)
@@ -46,12 +47,17 @@ setFavorites([...favorites,localCats[index]])
 
 const handleDelete=(index)=>{
 console.log('delete')
-let newList=localCats.filter((item, ind)=>ind!==index)
+let newList=localCats.filter((item,ind)=>ind!==index)
 setLocalCats(newList)
+}
+
+const handleDeleteFav=(index)=>{
+let newFav=favorites.filter((item,ind)=>ind!==index)
+setFavorites(newFav)
 }
   return (
     <div className="main-container">
-    <Header />
+    <Header alert={alert} />
     <main>
       {isLoading ?
      (<Loading />) : (<> <CatsFromAPI cats={cats} /></>)}
@@ -85,7 +91,7 @@ setLocalCats(newList)
                 <strong>Favorite Facts</strong>
                 <div className="fav-container">
                        {favorites.map((favorite,k)=>{
-                         return  <div class="local-cat">
+                         return  <div class="local-cat" key={k}>
                          {k+1}. {favorite}
                              <div class="btn-wrappper">
                                  <button id="remove-btn" className="btn btn-danger" onClick={()=>handleDeleteFav(k)}>
