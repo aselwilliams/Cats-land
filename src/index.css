@@ -1,13 +1,110 @@
-body {
+* {
+  box-sizing: border-box;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.main-container {
+  background-color: #eee;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-image: url("https://images.pexels.com/photos/460797/pexels-photo-460797.jpeg?auto=compress&cs=tinysrgb&w=1600");
+  background-position: center;
+  background-size: cover;
+}
+
+header {
+  width: 100vw;
+  height: 25vh;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.title{
+  color: white;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.row {
+  display: flex; 
+  flex-direction: row; 
+  width: 50vw;
+  margin: 15px;
+}
+  
+img {
+  width: 250px;
+  margin-left: 30px;
+ 
+}
+
+.img-wrapper {
+  text-align: center;
+}
+
+#alert-msg {
+  margin-top: 100px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  width: 28vw;
+  visibility: hidden;
+}
+
+.green {
+  background-color:rgb(208, 255, 208);
+  border: 1px solid rgb(39, 87, 39);
+  color: darkgreen;
+}
+
+.red {
+  background-color:pink;
+  border: 1px solid salmon;
+  color: brown;
+}
+
+main {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+section.bg-color {
+  background-color: lightgoldenrodyellow;
+  width: 30vw;
+  height:auto;
+  text-align: center;
+  padding: 20px;
+  opacity: 0.8;
+}
+
+#fetch-data, .local-cat{
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  overflow: auto;
+}
+
+.local-cat {
+  display: flex;
+  justify-content: space-between;
+}
+
+input#input-fact {
+  width: 25vw;
+  padding: 9px;
+  font-size: 16px;
+}
+
+button#add-btn {
+  background-color: cornflowerblue;
+  color: white;
+  border-radius: 4px;
+  padding: 12px;
+  border: none;
+}
+
+#favCats {
+  margin-top: 25px;
+  height: 150vh;
 }
