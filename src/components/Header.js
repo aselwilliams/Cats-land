@@ -1,5 +1,5 @@
 import React from "react";
-import Alert from '../Alert'
+import Alert from "../Alert";
 
 function Header({ alert }) {
   return (
@@ -13,14 +13,7 @@ function Header({ alert }) {
           />
         </h1>
       </div>
-      <div>
-      {alert && <Alert alert={alert}/>}
-      </div>
-      {/* <div>
-        <p id="alert-msg" className={alert ? "show red-msg" : "no-show"} >
-          Please Enter cats fact
-        </p>
-      </div> */}
+      <div>{alert && <Alert alert={alert} />}</div>
     </header>
   );
 }
