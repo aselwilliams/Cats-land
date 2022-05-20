@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react';
 import Header from './components/Header';
 import CatsFromAPI from './components/CatsFromAPI';
 import Loading from './components/Loading';
-import Alert from './Alert';
 import {FaLongArrowAltRight,FaRegHeart,FaTrashAlt,FaRegTrashAlt} from 'react-icons/fa'
 const animal = 'cat'; //dog, horse
 const catsURL =`https://cat-fact.herokuapp.com/facts/random?animal_type=${animal}&amount=`;
@@ -99,7 +98,7 @@ setFavorites(newFav)
                                  </button>
                              </div>
                          </div>
-                       })} <div className="fav-fact"></div>
+                       })} 
                 </div>
             </section>
     </div>
